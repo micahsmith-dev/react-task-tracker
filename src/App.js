@@ -1,30 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: 'Doctor\'s Appointment',
-      date: 'Feb 5th, 2:30pm',
-      reminder: true,
-    },
-    {
-      id: 2,
-      text: 'School Meeting',
-      date: 'Feb 6th, 1:30pm',
-      reminder: true,
-    },
-    {
-      id: 3,
-      text: 'Grocery Shopping',
-      date: 'Feb 5th, 2:30pm',
-      reminder: false,
-    },
-  ])
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+    }
+
+    getTasks()
+  }, [])
+
+  // Fetch Tasks
+  const fetchTasks = async () => {
+      const res = await fetch('http://localhost:5000/tasks')
+      const data = await res.json()
+
+      return data
+    }
 
   // Add Task
   const addTask = (task) => {
@@ -56,7 +54,7 @@ const App = () => {
       {showAddTask && <AddTask onAdd={addTask} />}
       {tasks.length > 0 ? (<Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
-        'No Tasks are Scheduled for Today!'
+        'No tasks are scheduled for today!'
       )}
     </div>
   )
