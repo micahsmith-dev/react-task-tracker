@@ -7,16 +7,10 @@
       "reminder": true
     },
     {
-      "id": 2,
-      "text": "School Meeting",
-      "date": "Feb 6th, 1:30pm",
-      "reminder": true
-    },
-    {
-      "id": 3,
-      "text": "Grocery Shopping",
-      "date": "Feb 5th, 2:30pm",
-      "reminder": false
+      "text": "Take Test",
+      "date": "Monday",
+      "reminder": true,
+      "id": 4
     }
   ]
 }
